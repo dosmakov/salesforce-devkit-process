@@ -19,16 +19,29 @@ public without sharing class ProcessQueueable implements Queueable {
 	/**
 	* @description Queue of Asynchronous processes
 	*/
-    public List<Process> Queue = new List<Process>();
+    public Map<String, Process> Queue = new Map<String, Process>();
     
 
     /**
 	* @description Execute processe in the Queue
 	*/
     public void execute(QueueableContext context) {
-        for (Process Process : Queue) {
+        for (Process Process : Queue.values()) {
         	Process.Run();
      	}    
+    }
+
+	/**
+    * @description Execute queued bussines logic asynchronous
+    */
+    @InvocableMethod(label='Run Async Processes' description='Run Async Processes')
+    public static void RunAsyncProcesses() {
+        ProcessQueueable AsyncJob = ProcessQueueable.getInstance();
+        
+        if (AsyncJob.Queue.isEmpty()) return;
+        
+        Id JobID = System.enqueueJob(AsyncJob);
+        System.debug('Queued JobID: ' + JobID);
     }
 
 }

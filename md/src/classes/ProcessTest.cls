@@ -46,7 +46,7 @@ public class ProcessTest {
 		List<Account> AccountsBefore = [SELECT Id FROM Account];
 		
 		Test.startTest();
-		Process.RunAsyncProcesses();
+		ProcessQueueable.RunAsyncProcesses();
 		Test.stopTest();
 
 		List<Account> AccountsAfter = [SELECT Id FROM Account];
@@ -81,7 +81,7 @@ public class ProcessTest {
 		);
 
 		Test.startTest();
-		Process.RunAsyncProcesses();
+		ProcessQueueable.RunAsyncProcesses();
 		Test.stopTest();
 
 		List<Account> AccountsAfter = [SELECT Id FROM Account];

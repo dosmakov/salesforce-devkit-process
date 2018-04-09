@@ -98,21 +98,8 @@ public virtual without sharing class Process {
         if (!isRunASync()) return;
         
         ProcessQueueable AsyncJob = ProcessQueueable.getInstance();
-        AsyncJob.Queue.add(this);
+        AsyncJob.Queue.put(this.getName(), this);
 
-    }
-
-    /**
-    * @description Execute queued bussines logic asynchronous
-    */
-    @InvocableMethod(label='Run Async Processes' description='Run Async Processes')
-    public static void RunAsyncProcesses() {
-        ProcessQueueable AsyncJob = ProcessQueueable.getInstance();
-        
-        if (AsyncJob.Queue.isEmpty()) return;
-        
-        Id JobID = System.enqueueJob(AsyncJob);
-        System.debug('Queued JobID: ' + JobID);
     }
 
 }
